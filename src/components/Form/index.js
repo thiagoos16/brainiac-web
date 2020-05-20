@@ -7,6 +7,7 @@ import api from '../../services/api';
 export default function Form() {
     const [ name, setName ] = useState('');
     const [ email, setEmail ] = useState('');
+    const [ isDisabled, disableButton ] = useState(true);
 
     async function handleEnableLink(e) {
         e.preventDefault();
@@ -27,6 +28,12 @@ export default function Form() {
         }
     }
 
+    function verifyFieldsFill() {
+      if (name != '' && email != '') {
+        disableButton(false);
+      }
+    } 
+
     return (
         <div className="downloader-container">
           <div className="content">
@@ -38,16 +45,18 @@ export default function Form() {
                 <input
                     placeholder="Informe seu nome"
                     value={name}
-                    onChange={e => setName(e.target.value)} 
+                    onChange={e => setName(e.target.value)}
+                    onKeyUp={verifyFieldsFill}
                 />
 
                 <input
                     placeholder="Informe seu email"
                     value={email}
-                    onChange={e => setEmail(e.target.value)} 
+                    onChange={e => setEmail(e.target.value)}
+                    onKeyUp={verifyFieldsFill}
                 />
-
-                <button className="button" type="submit" disabled> Baixar PDFs </button>
+ 
+                <button className="button" type="submit" disabled={isDisabled}> Baixar PDFs </button>
             </form>
           </div>
         </div>
