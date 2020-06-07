@@ -18,11 +18,13 @@ export default function Form() {
         }
     
         try {
-          await api.post('downloaders', data, {
+          await api.post('api/downloaders', data, {
             headers: {
               'Content-Type': 'application/json'
             }
           });
+          alert('Acesse a nova aba e baixe os PDFs');
+          window.open("https://drive.google.com/file/d/10uSeGgcSkPNvVXnAP74Tpu0moCan2QCq/view");
         } catch (error) {
           alert('Erro no cadastro');
         }
@@ -36,12 +38,10 @@ export default function Form() {
 
     return (
         <div className="downloader-container">
-          <div className="content">
-            <section>
-              <h1> Preencha os dados para baixar os arquivos </h1>
-            </section>
-  
+          <section className="content">
             <form onSubmit={handleEnableLink}>
+                <h1> Preencha e baixe os PDFs </h1>
+
                 <input
                     placeholder="Informe seu nome"
                     value={name}
@@ -58,7 +58,7 @@ export default function Form() {
  
                 <button className="button" type="submit" disabled={isDisabled}> Baixar PDFs </button>
             </form>
-          </div>
+          </section>
         </div>
     );
 }
